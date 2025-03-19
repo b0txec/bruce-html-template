@@ -2,6 +2,12 @@ pre-made template for running pen-tests using Evil Twin
 
 i do use it in different tests with different devices, so it's just my personal storage for code
 
+the colors.sh is a bash script to change the colors of the template, it will create a new html file:
+```bash
+chmod +x colors.sh
+./colors.sh wifi-bruce.sh
+```
+
 i use [this-is-bruce](https://github.com/pr3y/Bruce) as the soft for M5Stack StickC Plus2 to run Evil Twin for pen-tests
 
 
